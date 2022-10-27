@@ -6,6 +6,7 @@ import googleIcon from '../../Assets/Icon/icons8-google.svg'
 import facebookIcon from '../../Assets/Icon/icons8-facebook.svg'
 import githubIcon from '../../Assets/Icon/icons8-github.svg'
 import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const { createAccount, signInwithProvider, emailVarification,
@@ -32,7 +33,7 @@ const Register = () => {
 
     if (password !== passwordConfirm) {
         setError("Password Doesn't Match")
-       return alert("Password Not Match");
+       return toast.error("Password didn't Match")
     }
 
     createAccount(email, password)
@@ -41,6 +42,7 @@ const Register = () => {
         console.log(res);
         handelUserInformationProviding(name, picUrl);
         emailVarificationHandler()
+        toast.error("Please Check your Email")
         setLoading(false);
       })
       .catch((error) => {

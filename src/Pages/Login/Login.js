@@ -45,7 +45,7 @@ const Login = () => {
       else {
         toast.error("Please Verify your Email")
       }
-    // navigate(from, {replace:true})
+   
     })
     .catch(error => {
       setError(error.message);
