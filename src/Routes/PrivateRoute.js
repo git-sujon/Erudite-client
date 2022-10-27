@@ -13,12 +13,12 @@ const PrivateRouteContext=createContext()
 
 const PrivateRoute = ({children}) => {
     const location= useLocation()
-    // const navigate= useNavigate()
+   //  const navigate= useNavigate()
 
     const {user, loading}= useContext(AuthContext)
-    // console.log(user)
+   
     if(loading) {
-      //  return <Spinner animation="grow" variant="dark" />
+     
     }
     
     if(!user){
