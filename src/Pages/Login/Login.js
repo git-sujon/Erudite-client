@@ -1,30 +1,94 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import logo from '../../Assets/Logo/logo (2).png'
-import googleIcon from '../../Assets/Icon/icons8-google.svg'
-import facebookIcon from '../../Assets/Icon/icons8-facebook.svg'
-import githubIcon from '../../Assets/Icon/icons8-github.svg'
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import logo from "../../Assets/Logo/logo (2).png";
+import googleIcon from "../../Assets/Icon/icons8-google.svg";
+import facebookIcon from "../../Assets/Icon/icons8-facebook.svg";
+import githubIcon from "../../Assets/Icon/icons8-github.svg";
 import { AuthContext } from "../../Contexts/AuthProvider";
+import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
 
 const Login = () => {
-    const {user} =useContext(AuthContext)
-    const [error, setError] =  useState('')
-    const onSubmitHandler = (event) => {
-        event.preventDefault()
-        const form= event.target
-       
-        const email= form.email.value
-        const password= form.password.value
-       
-        console.log( email, password)
+  const {
+    createAccount,
+    signInwithProvider,
+    emailVarification,
+    userInformationProviding,
+    setLoading,login
+  } = useContext(AuthContext);
 
-        
-    }
+  const navigate= useNavigate() 
+  const location= useLocation()
+  const from = location.state?.from?.pathname || "/";
+
+  const googleProvider= new GoogleAuthProvider()
+  const githubProvider = new GithubAuthProvider()
+  const facebookProvider =new FacebookAuthProvider()
+
+  const [error, setError] = useState("");
+
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+    const form = event.target;
+
+    const email = form.email.value;
+    const password = form.password.value;
+
+    console.log(email, password);
+    login(email, password)
+    .then((res) => {
+      form.reset()
+      const user=res.user
+      if (user.emailVerified) {
+        navigate(from, {replace:true})
+      }
+      else {
+        // toast.error("Please Verify your Email")
+      }
+
+    })
+    .catch(error => {
+      setError(error.message.split('(')[1].split('/')[1].slice(0,-2).replace('-',' ').replace('-',' '));
+      console.error(error);
+      
+    })
+
+    .finally(()=> {
+      setLoading(false)
+    })
 
 
 
+  };
 
+  const googleProviderHandler = () => {
+    signInwithProvider(googleProvider)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
+  const githubProviderHandler = () => {
+    signInwithProvider(githubProvider)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const facebookProviderHandler = () => {
+    signInwithProvider(facebookProvider)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   return (
     <div>
@@ -48,7 +112,11 @@ const Login = () => {
               </h2>
 
               <p class="mt-4 leading-relaxed text-white/90">
-              Erudite is a global destination for teaching and learning online. It was founded in May 2022 by Moniruzzaman Sujon. As of october 2022, the platform has more than 4 Thousands students, 204 courses, and 71 instructors teaching courses in over 3 languages.
+                Erudite is a global destination for teaching and learning
+                online. It was founded in May 2022 by Moniruzzaman Sujon. As of
+                october 2022, the platform has more than 4 Thousands students,
+                204 courses, and 71 instructors teaching courses in over 3
+                languages.
               </p>
             </div>
           </section>
@@ -72,13 +140,15 @@ const Login = () => {
                 </h1>
 
                 <p class="mt-4 leading-relaxed text-gray-500 dark:text-gray-400">
-                Erudite is a global destination for teaching and learning online. It was founded in May 2022 by Moniruzzaman Sujon. As of october 2022, the platform has more than 4 Thousands students, 204 courses, and 71 instructors teaching courses in over 3 languages.
+                  Erudite is a global destination for teaching and learning
+                  online. It was founded in May 2022 by Moniruzzaman Sujon. As
+                  of october 2022, the platform has more than 4 Thousands
+                  students, 204 courses, and 71 instructors teaching courses in
+                  over 3 languages.
                 </p>
               </div>
 
               <form onSubmit={onSubmitHandler} class="mt-32">
-               
-
                 <div class="mb-6">
                   <label
                     htmlFor="Email"
@@ -111,13 +181,9 @@ const Login = () => {
                   />
                 </div>
 
-          
-
-              
-
                 <div class="">
-                <p className="text-red-600">{error}</p>
-                <p class="mb-4 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
+                  <p className="text-red-600">{error}</p>
+                  <p class="mb-4 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
                     Don't have an account?
                     <Link
                       to="/register"
@@ -130,27 +196,37 @@ const Login = () => {
                   <button class="w-full block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500 dark:hover:bg-blue-700 dark:hover:text-white">
                     Create an account
                   </button>
-
-                 
                 </div>
               </form>
             </div>
-            <div class="flex justify-around mt-12 ">
-                 <button className="border block border-white p-2 bg-gray-100 rounded-sm hover:bg-gray-900">
-                   <Link><img className="w-12" src={googleIcon} alt="" /></Link>
-                 </button>
+            <div class="flex justify-between mt-12 ">
+              <button
+                onClick={googleProviderHandler}
+                className="border block border-white p-2 bg-gray-100 rounded-sm hover:bg-gray-900"
+              >
+                <Link>
+                  <img className="w-12" src={googleIcon} alt="" />
+                </Link>
+              </button>
 
+              <button
+                onClick={facebookProviderHandler}
+                className="border block border-white p-2 bg-gray-100  rounded-sm hover:bg-gray-900"
+              >
+                <Link>
+                  <img className="w-12" src={facebookIcon} alt="" />
+                </Link>
+              </button>
 
-
-                 <button className="border block border-white p-2 bg-gray-100  rounded-sm hover:bg-gray-900">
-                   <Link><img className="w-12" src={facebookIcon} alt="" /></Link>
-                 </button>
-
-                 <button className="border block border-white p-2 bg-gray-100  rounded-sm hover:bg-gray-900">
-                   <Link><img className="w-12" src={githubIcon} alt="" /></Link>
-                 </button>
-                </div>
-
+              <button
+                onClick={githubProviderHandler}
+                className="border block border-white p-2 bg-gray-100  rounded-sm hover:bg-gray-900"
+              >
+                <Link>
+                  <img className="w-12" src={githubIcon} alt="" />
+                </Link>
+              </button>
+            </div>
           </main>
         </div>
       </section>
