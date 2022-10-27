@@ -89,7 +89,7 @@ const CoursesDetails = () => {
 
                     <div className="hidden md:block">
                       <Link
-                        to="/checkout"
+                        to={`/checkout/${id}`}
                         className="inline-block rounded bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75"
                         href="/download"
                       >
@@ -136,7 +136,7 @@ const CoursesDetails = () => {
               {/* Checkout button */}
               <div className="text-center my-12">
                 <Link
-                  to="/checkout"
+                to={`/checkout/${id}`}
                   className="inline-block rounded bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75"
                   href="/download"
                 >
