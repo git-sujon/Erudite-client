@@ -11,7 +11,9 @@ const Register = () => {
   const { createAccount, signInwithProvider, emailVarification,
     userInformationProviding,
     setLoading, } = useContext(AuthContext);
+
   const [error, setError] =  useState('')
+  const [isChecked, setIsChecked] = useState(false);
   const googleProvider= new GoogleAuthProvider()
   const githubProvider = new GithubAuthProvider()
   const facebookProvider =new FacebookAuthProvider()
@@ -30,7 +32,7 @@ const Register = () => {
 
     if (password !== passwordConfirm) {
         setError("Password Doesn't Match")
-      alert("Password Not Match");
+       return alert("Password Not Match");
     }
 
     createAccount(email, password)
@@ -107,6 +109,11 @@ const Register = () => {
     })
   }
 
+  const checkHandeler = (event) => {
+    setIsChecked(event.target.checked);
+    console.log(event.target.checked);
+  };
+
   return (
     <div>
       <section className="bg-white dark:bg-gray-900 pb-32">
@@ -179,6 +186,7 @@ const Register = () => {
 
                   <input
                     type="text"
+                    required
                     id="FirstName"
                     name="first_name"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 py-2 pl-2"
@@ -195,6 +203,7 @@ const Register = () => {
 
                   <input
                     type="text"
+                    required
                     id="LastName"
                     name="last_name"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 py-2 pl-2"
@@ -212,6 +221,7 @@ const Register = () => {
                   <input
                     type="email"
                     id="Email"
+                    required
                     name="email"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 py-2 pl-2"
                   />
@@ -227,6 +237,7 @@ const Register = () => {
 
                   <input
                     type="photoURl"
+                    required
                     id="photoURl"
                     name="photoURl"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 py-2 pl-2"
@@ -243,6 +254,7 @@ const Register = () => {
 
                   <input
                     type="password"
+                    required
                     id="Password"
                     name="password"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 py-2 pl-2"
@@ -259,6 +271,7 @@ const Register = () => {
 
                   <input
                     type="password"
+                    required
                     id="PasswordConfirmation"
                     name="password_confirmation"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 py-2 pl-2"
@@ -269,6 +282,7 @@ const Register = () => {
                   <label htmlFor="MarketingAccept" className="flex gap-4">
                     <input
                       type="checkbox"
+                      onClick={checkHandeler}
                       id="MarketingAccept"
                       name="marketing_accept"
                       className="h-5 w-5 rounded-md border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800"
@@ -305,7 +319,8 @@ const Register = () => {
                 <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                   <button
                     type="submit"
-                    className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500 dark:hover:bg-blue-700 dark:hover:text-white"
+                    disabled={!isChecked}
+                    className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring dark:hover:bg-blue-700  disabled:hover:text-white  dark:hover:text-white disabled:bg-blue-400"
                   >
                     Create an account
                   </button>
