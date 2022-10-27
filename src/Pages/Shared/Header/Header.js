@@ -198,22 +198,38 @@ export default function NavBar() {
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pt-2 pb-3">
               <Disclosure.Button className="flex flex-col">
-                <Link
-                  to="/"
-                  className=" text-white hover:bg-gray-700 hover 
-                      px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Home
-                </Link>
+              <Link
+                      to="/"
+                      className=" text-white hover:bg-gray-700 hover 
+                        px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Home
+                    </Link>
 
-                {/* single Nvabar  */}
-                <Link
-                  to="/courses"
-                  className=" text-white hover:bg-gray-700 hover 
-                      px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Courses
-                </Link>
+                    {/* single Nvabar  */}
+                    <Link
+                      to="/courses"
+                      className=" text-white hover:bg-gray-700 hover 
+                        px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Courses
+                    </Link>
+                    {/* single Nvabar  */}
+                    <Link
+                      to="/blog"
+                      className=" text-white hover:bg-gray-700 hover 
+                        px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Blog
+                    </Link>
+                    {/* single Nvabar  */}
+                    <Link
+                      to="/faq"
+                      className=" text-white hover:bg-gray-700 hover 
+                        px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      FAQ
+                    </Link>
               </Disclosure.Button>
             </div>
           </Disclosure.Panel>
