@@ -15,7 +15,7 @@ const RightSideBar = () => {
             <h4 className='text-4xl text-gray-700 '>All Courses</h4>
             <hr />
             {
-                catagories.map(category => <p key={category.id} className='text-blue-700'><Link to={`/catagories/${category.catagories_id}`}>{category.Category_Name}</Link></p>)
+                catagories.map(category => <p key={category.id} className='text-blue-700 border ' ><Link to={`/catagories/${category.catagories_id}`}>{category.Category_Name}</Link></p>)
             }
         </div>
     );
