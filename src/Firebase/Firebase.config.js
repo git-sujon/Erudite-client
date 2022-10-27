@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyD-4UediDUB5kqfKoPFrICH8uKQLAf6aLk",
-  authDomain: "erudite-courses-site.firebaseapp.com",
-  projectId: "erudite-courses-site",
-  storageBucket: "erudite-courses-site.appspot.com",
-  messagingSenderId: "597104988799",
-  appId: "1:597104988799:web:8cacd2e9f77dea7a93254a"
+  apiKey: process.env.REACT_APP_apiKey,
+  authDomain: process.env.REACT_APP_authDomain,
+  projectId: process.env.REACT_APP_projectId,
+  storageBucket: process.env.REACT_APP_storageBucket,
+  messagingSenderId: process.env.REACT_APP_messagingSenderId,
+  appId: process.env.REACT_APP_appId,
 };
 
 // Initialize Firebase
