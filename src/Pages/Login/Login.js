@@ -6,6 +6,7 @@ import facebookIcon from "../../Assets/Icon/icons8-facebook.svg";
 import githubIcon from "../../Assets/Icon/icons8-github.svg";
 import { AuthContext } from "../../Contexts/AuthProvider";
 import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const {
@@ -18,7 +19,7 @@ const Login = () => {
 
   const navigate= useNavigate() 
   const location= useLocation()
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/courses";
 
   const googleProvider= new GoogleAuthProvider()
   const githubProvider = new GithubAuthProvider()
@@ -42,12 +43,12 @@ const Login = () => {
         navigate(from, {replace:true})
       }
       else {
-        // toast.error("Please Verify your Email")
+        toast.error("Please Verify your Email")
       }
-
+    // navigate(from, {replace:true})
     })
     .catch(error => {
-      setError(error.message.split('(')[1].split('/')[1].slice(0,-2).replace('-',' ').replace('-',' '));
+      setError(error.message);
       console.error(error);
       
     })
