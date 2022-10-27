@@ -15,6 +15,7 @@ import Register from '../Pages/Register/Register';
 import RightSideBar from '../Pages/Shared/RightSideBar/RightSideBar';
 import ErrorPage from '../Pages/ErrorPage/ErrorPage';
 import BlogDetails from '../Pages/BlogDetails/BlogDetails';
+import PrivateRoute from './PrivateRoute';
 
 
 
@@ -54,7 +55,7 @@ const Routes = createBrowserRouter([
             },
             {
                 path:'/checkout',
-                element: <Checkout></Checkout>
+                element: <PrivateRoute><Checkout></Checkout></PrivateRoute>
             },
             {
                 path:'/blog',

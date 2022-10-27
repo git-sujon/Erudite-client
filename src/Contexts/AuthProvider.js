@@ -27,6 +27,7 @@ const AuthProvider = ({children}) => {
     }
 
     const signInwithProvider = (provider) => {
+        setLoading(true);
         return signInWithPopup(auth, provider)
     }
 
@@ -40,7 +41,7 @@ const AuthProvider = ({children}) => {
         return updateProfile(auth.currentUser, profile);
       };
 
-    useEffect(() => {
+      useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
           if (currentUser === null || currentUser.emailVerified) {
             setUser(currentUser);
@@ -56,8 +57,7 @@ const AuthProvider = ({children}) => {
 
 
 
-
-    const authInfo={user, createAccount , signInwithProvider, logOut, emailVarification, userInformationProviding , login, setLoading }
+    const authInfo={user, createAccount , signInwithProvider, logOut, emailVarification, userInformationProviding , login, setLoading , loading}
     return (
         <AuthContext.Provider value={authInfo}>
             {children}
