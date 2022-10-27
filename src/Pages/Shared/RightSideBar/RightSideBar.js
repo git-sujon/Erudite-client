@@ -6,7 +6,7 @@ const RightSideBar = () => {
 
     const [catagories, setCatagories] = useState([])
     
-    axios.get('http://localhost:5000/catagories/')
+    axios.get('https://erudite-server-side.vercel.app/catagories/')
     .then(data => setCatagories(data.data))
 
   

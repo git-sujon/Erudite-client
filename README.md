@@ -1,6 +1,6 @@
 # Project Summary:-
-### - Project Name: [Erudite](https:).
-### - Live Site: https://
+### - Project Name: [Erudite](https://erudite-courses-site.web.app/).
+### - Live Site: https://erudite-courses-site.web.app/
 ### - Project type: Educational
 # Uses Technology on Project:-
 ### - Basic:  HTML5, CSS3, React.JS
