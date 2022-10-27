@@ -14,6 +14,7 @@ import privacyPolicy from '../Pages/Others/privacyPolicy';
 import Register from '../Pages/Register/Register';
 import RightSideBar from '../Pages/Shared/RightSideBar/RightSideBar';
 import ErrorPage from '../Pages/ErrorPage/ErrorPage';
+import BlogDetails from '../Pages/BlogDetails/BlogDetails';
 
 
 
@@ -57,7 +58,13 @@ const Routes = createBrowserRouter([
             },
             {
                 path:'/blog',
-                element: <Blog></Blog>
+                element: <Blog></Blog>,
+                loader:()=>fetch('http://localhost:5000/blog')
+            },
+            {
+                path:'/blog/:id',
+                element: <BlogDetails></BlogDetails>,
+                loader:({params})=>fetch(`http://localhost:5000/blog/${params.id}`)
             },
             {
                 path:'/faq',
@@ -75,6 +82,7 @@ const Routes = createBrowserRouter([
                 path:'/privacyPolicy',
                 element: <privacyPolicy></privacyPolicy>
             },
+          
           
         ]
     }

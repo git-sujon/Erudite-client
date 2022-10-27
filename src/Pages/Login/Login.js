@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from '../../Assets/Logo/logo (2).png'
 import googleIcon from '../../Assets/Icon/icons8-google.svg'
 import facebookIcon from '../../Assets/Icon/icons8-facebook.svg'
 import githubIcon from '../../Assets/Icon/icons8-github.svg'
+import { AuthContext } from "../../Contexts/AuthProvider";
 
 const Login = () => {
-
+    const {user} =useContext(AuthContext)
+    const [error, setError] =  useState('')
     const onSubmitHandler = (event) => {
         event.preventDefault()
         const form= event.target
@@ -114,7 +116,7 @@ const Login = () => {
               
 
                 <div class="">
-
+                <p className="text-red-600">{error}</p>
                 <p class="mb-4 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
                     Don't have an account?
                     <Link

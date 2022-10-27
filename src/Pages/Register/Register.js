@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../Assets/Logo/logo (2).png";
 import { AuthContext } from "../../Contexts/AuthProvider";
@@ -8,7 +8,10 @@ import githubIcon from '../../Assets/Icon/icons8-github.svg'
 import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
 
 const Register = () => {
-  const { createAccount, signInwithProvider } = useContext(AuthContext);
+  const { createAccount, signInwithProvider, emailVarification,
+    userInformationProviding,
+    setLoading, } = useContext(AuthContext);
+  const [error, setError] =  useState('')
   const googleProvider= new GoogleAuthProvider()
   const githubProvider = new GithubAuthProvider()
   const facebookProvider =new FacebookAuthProvider()
@@ -18,26 +21,61 @@ const Register = () => {
     const form = event.target;
     const firstName = form.first_name.value;
     const lastName = form.last_name.value;
-    const name = firstName + lastName;
+    const name = firstName + ' ' + lastName;
     const email = form.email.value;
     const password = form.password.value;
     const passwordConfirm = form.PasswordConfirmation.value;
-    console.log(name, email, password, passwordConfirm);
+    const picUrl =form.photoURl.value
+    console.log(name, email, password, picUrl,  passwordConfirm);
 
     if (password !== passwordConfirm) {
+        setError("Password Doesn't Match")
       alert("Password Not Match");
     }
 
     createAccount(email, password)
       .then((res) => {
+        form.reset();
         console.log(res);
+        handelUserInformationProviding(name, picUrl);
+        emailVarificationHandler()
+        setLoading(false);
       })
       .catch((error) => {
         console.error(error);
+        setError(error.message)
       });
 
 
+      const handelUserInformationProviding = (name, picUrl) => {
+        const profile = {
+          displayName: name,
+          photoURL: picUrl,
+        };
+  
+        userInformationProviding(profile)
+        .then(()=> {
+  
+        })
+        .catch(error=>{
+          console.error(error);
+        })
+      };
+  
+
+    const  emailVarificationHandler = ()=> {
+        emailVarification()
+        .then(() => {})
+        .catch(error =>{
+          console.error(error)
+        })
+    }
+
+
+
   };
+
+
 
   const googleProviderHandler =() =>{
     signInwithProvider(googleProvider)
@@ -179,6 +217,22 @@ const Register = () => {
                   />
                 </div>
 
+                <div className="col-span-6">
+                  <label
+                    htmlFor="photoURl"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    PhotoURl
+                  </label>
+
+                  <input
+                    type="photoURl"
+                    id="photoURl"
+                    name="photoURl"
+                    className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 py-2 pl-2"
+                  />
+                </div>
+
                 <div className="col-span-6 sm:col-span-3">
                   <label
                     htmlFor="Password"
@@ -228,6 +282,7 @@ const Register = () => {
                 </div>
 
                 <div className="col-span-6">
+                    <p className="text-red-600">{error}</p>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
                     By creating an account, you agree to our
                     <Link
@@ -270,7 +325,7 @@ const Register = () => {
 
               <div>
 
-                <div class="flex justify-around mt-12 ">
+                <div class="flex justify-between mt-12 ">
                  <button onClick={googleProviderHandler} className="border block border-white p-2 bg-gray-100 rounded-sm hover:bg-gray-900">
                    <Link><img className="w-12" src={googleIcon} alt="" /></Link>
                  </button>
