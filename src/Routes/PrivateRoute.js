@@ -18,7 +18,7 @@ const PrivateRoute = ({children}) => {
     const {user, loading}= useContext(AuthContext)
    
     if(loading) {
-     
+      return <div class='loading h-1 w-[0%] bg-red-500 transition-all duration-200 absolute z-40 top-0 '></div>
     }
     
     if(!user){
