@@ -14,7 +14,7 @@ export default function NavBar() {
   const [enabled, setEnabled] = useState(false);
 
   const { user, logOut } = useContext(AuthContext);
-  console.log(user?.displayName);
+ 
 
   const signOutHandler = () => {
     logOut()
@@ -129,7 +129,7 @@ export default function NavBar() {
                   leaveTo="transform opacity-0 scale-95"
                 >
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <Menu.Item>
+                    {/* <Menu.Item>
                       {({ active }) => (
                         <Link
                           href="#"
@@ -141,7 +141,7 @@ export default function NavBar() {
                           Your Profile
                         </Link>
                       )}
-                    </Menu.Item>
+                    </Menu.Item> */}
 
                     <Menu.Item>
                       {({ active }) => (
@@ -172,25 +172,9 @@ export default function NavBar() {
               }
 
                 <div className="ml-5" onClick={() => setLight(!light)}>
-                  {light ? <button title="Dark"><MoonIcon className="w-8"></MoonIcon> </button> : <button title="Light"><SunIcon className="w-8"></SunIcon> </button>}
+                  {light ? <button title="Dark"><MoonIcon className="w-8 text-white"></MoonIcon> </button> : <button title="Light"><SunIcon className="w-8 text-white"></SunIcon> </button>}
                 </div>
 
-                {/* <div className="py-12">
-                  <Switch
-                    checked={enabled}
-                    onChange={setEnabled}
-                    className={`${enabled ? "bg-teal-900" : "bg-teal-700"}
-          relative inline-flex h-[38px] w-[74px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
-                  >
-                    <span className="sr-only"></span>
-                    <span
-                      aria-hidden="true"
-                      className={`${enabled ? "translate-x-9" : "translate-x-0"}
-            pointer-events-none inline-block h-[34px] w-[34px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
-            
-                    ></span>
-                  </Switch>
-                </div> */}
               </div>
             </div>
           </div>

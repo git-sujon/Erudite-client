@@ -29,22 +29,22 @@ const Routes = createBrowserRouter([
             {
                 path:'/',
                 element:<Home></Home>,
-                loader:()=> fetch('https://erudite-server-side.vercel.app/courses')
+                loader:()=> fetch('http://localhost:5000/courses')
             },
             {
                 path:'courses',
                 element:<Courses></Courses>,
-                loader:()=> fetch('https://erudite-server-side.vercel.app/courses')
+                loader:()=> fetch('http://localhost:5000/courses')
             },
             {
                 path:'catagories/:catagories_id',
                 element:<CoursesWithCatagoreis></CoursesWithCatagoreis>,
-                loader:({params})=> fetch(`https://erudite-server-side.vercel.app/catagories/${params.catagories_id}`)
+                loader:({params})=> fetch(`http://localhost:5000/catagories/${params.catagories_id}`)
             },
             {
                 path:'courses/:id',
                 element:<CoursesDetails></CoursesDetails>,
-                loader:({params})=>fetch( `https://erudite-server-side.vercel.app/courses/${params.id}`)
+                loader:({params})=>fetch( `http://localhost:5000/courses/${params.id}`)
             },
             {
                 path:'/login',
@@ -57,17 +57,17 @@ const Routes = createBrowserRouter([
             {
                 path:'checkout/:id',
                 element: <PrivateRoute><Checkout></Checkout></PrivateRoute>,
-                loader:({params})=>fetch( `https://erudite-server-side.vercel.app/courses/${params.id}`)
+                loader:({params})=>fetch( `http://localhost:5000/courses/${params.id}`)
             },
             {
                 path:'/blog',
                 element: <Blog></Blog>,
-                loader:()=>fetch('https://erudite-server-side.vercel.app/blog')
+                loader:()=>fetch('http://localhost:5000/blog')
             },
             {
                 path:'/blog/:id',
                 element: <BlogDetails></BlogDetails>,
-                loader:({params})=>fetch(`https://erudite-server-side.vercel.app/blog/${params.id}`)
+                loader:({params})=>fetch(`http://localhost:5000/blog/${params.id}`)
             },
             {
                 path:'/faq',

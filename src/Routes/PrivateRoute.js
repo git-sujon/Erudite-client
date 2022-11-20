@@ -16,8 +16,7 @@ const PrivateRoute = ({children}) => {
    //  const navigate= useNavigate()
 
     const {user, loading}= useContext(AuthContext)
-    console.log(user)
-    console.log(loading)
+
    
     if(loading) {
       return "Loading ..........."

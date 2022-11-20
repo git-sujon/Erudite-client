@@ -2,21 +2,22 @@ import React from "react";
 import { useLoaderData } from "react-router-dom";
 import CoursesDisplay from "../CoursesDisplay/CoursesDisplay";
 import CoursesHeader from "../Shared/CoursesHeader/CoursesHeader";
+import RightSideBar from "../Shared/RightSideBar/RightSideBar";
 
 const CoursesWithCatagoreis = () => {
   const catagoriesData = useLoaderData();
-  console.log(catagoriesData);
-  const coursesData= {Category: catagoriesData[0].Category}
+
+  const coursesData = { Category: catagoriesData[0].Category };
 
   return (
     <div>
       <div className="">
         <CoursesHeader coursesData={coursesData}></CoursesHeader>
       </div>
-      <div className="container  mx-auto">
+      <div className="container  mx-auto flex flex-col-reverse lg:grid grid-cols-12 mt-12 ">
         {/* Catagories header   */}
 
-        <div className="mt-12">
+        <div className="col-span-9">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto gap-8">
             {catagoriesData.map((courses) => (
               <CoursesDisplay
@@ -25,6 +26,9 @@ const CoursesWithCatagoreis = () => {
               ></CoursesDisplay>
             ))}
           </div>
+        </div>
+        <div className="col-span-3  ">
+          <RightSideBar></RightSideBar>
         </div>
       </div>
     </div>

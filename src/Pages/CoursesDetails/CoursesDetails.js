@@ -14,7 +14,7 @@ import "./CoursesDetails.css";
 
 const CoursesDetails = () => {
   const coursesData = useLoaderData();
-  console.log(coursesData);
+
   
   const {
     id,

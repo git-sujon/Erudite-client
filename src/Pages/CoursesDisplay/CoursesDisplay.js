@@ -21,10 +21,10 @@ const CoursesDisplay = ({ courses }) => {
 
   return (
     <div className="flex justify-center">
-      <div className="rounded-lg shadow-lg bg-white max-w-sm">
-        <Link to={ `/courses/${id}`} data-mdb-ripple="true" data-mdb-ripple-color="light">
+      <Link to={ `/courses/${id}`} className="rounded-lg shadow-lg bg-white max-w-sm">
+        <div  data-mdb-ripple="true" data-mdb-ripple-color="light">
           <img className="rounded-t-lg" src={img} alt="courses images" />
-        </Link>
+        </div>
         <div className="p-6">
           <h5 className="h-20 text-gray-700 text-xl font-medium mb-2">
             {course_title}
@@ -55,7 +55,7 @@ const CoursesDisplay = ({ courses }) => {
 
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

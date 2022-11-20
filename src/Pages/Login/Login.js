@@ -19,7 +19,7 @@ const Login = () => {
 
   const navigate= useNavigate() 
   const location= useLocation()
-  const from = location.state?.from?.pathname || "/courses";
+  const from = location.state?.from?.pathname || "/";
 
   const googleProvider= new GoogleAuthProvider()
   const githubProvider = new GithubAuthProvider()
@@ -34,7 +34,7 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    console.log(email, password);
+
     login(email, password)
     .then((res) => {
       form.reset()
@@ -64,7 +64,7 @@ const Login = () => {
   const googleProviderHandler = () => {
     signInwithProvider(googleProvider)
       .then((res) => {
-        console.log(res);
+        navigate(from, {replace:true})
       })
       .catch((error) => {
         console.error(error);
@@ -74,7 +74,7 @@ const Login = () => {
   const githubProviderHandler = () => {
     signInwithProvider(githubProvider)
       .then((res) => {
-        console.log(res);
+        navigate(from, {replace:true})
       })
       .catch((error) => {
         console.error(error);
@@ -84,7 +84,7 @@ const Login = () => {
   const facebookProviderHandler = () => {
     signInwithProvider(facebookProvider)
       .then((res) => {
-        console.log(res);
+        navigate(from, {replace:true})
       })
       .catch((error) => {
         console.error(error);
@@ -93,26 +93,26 @@ const Login = () => {
 
   return (
     <div>
-      <section class="bg-white dark:bg-gray-900 pb-32">
-        <div class="lg:grid lg:min-h-screen lg:grid-cols-12">
-          <section class="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
+      <section className="bg-white dark:bg-gray-900 pb-32">
+        <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
+          <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
             <img
               alt="Night"
               src="https://images.unsplash.com/photo-1491975474562-1f4e30bc9468?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
-              class="absolute inset-0 h-full w-full object-cover opacity-40"
+              className="absolute inset-0 h-full w-full object-cover opacity-40"
             />
 
-            <div class="hidden lg:relative lg:block lg:p-12">
-              <Link class="block text-white" href="/">
-                <span class="sr-only">Erudite</span>
+            <div className="hidden lg:relative lg:block lg:p-12">
+              <Link className="block text-white" href="/">
+                <span className="sr-only">Erudite</span>
                 <img src={logo} alt="" />
               </Link>
 
-              <h2 class="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
+              <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
                 Welcome to Erudite 👨‍🎓
               </h2>
 
-              <p class="mt-4 leading-relaxed text-white/90">
+              <p className="mt-4 leading-relaxed text-white/90">
                 Erudite is a global destination for teaching and learning
                 online. It was founded in May 2022 by Moniruzzaman Sujon. As of
                 october 2022, the platform has more than 4 Thousands students,
@@ -124,23 +124,23 @@ const Login = () => {
 
           <main
             aria-label="Main"
-            class=" items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:py-12 lg:px-16 xl:col-span-6"
+            className=" items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:py-12 lg:px-16 xl:col-span-6"
           >
-            <div class="max-w-xl lg:max-w-3xl">
-              <div class="relative -mt-16 block lg:hidden">
+            <div className="max-w-xl lg:max-w-3xl">
+              <div className="relative -mt-16 block lg:hidden">
                 <Link
-                  class="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-blue-600 dark:bg-gray-900 sm:h-20 sm:w-20"
+                  className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-blue-600 dark:bg-gray-900 sm:h-20 sm:w-20"
                   href="/"
                 >
-                  <span class="sr-only">Erudite</span>
+                  <span className="sr-only">Erudite</span>
                   <img src={logo} alt="" />
                 </Link>
 
-                <h1 class="mt-2 text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl md:text-4xl">
+                <h1 className="mt-2 text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl md:text-4xl">
                   Welcome to Erudite 👨‍🎓
                 </h1>
 
-                <p class="mt-4 leading-relaxed text-gray-500 dark:text-gray-400">
+                <p className="mt-4 leading-relaxed text-gray-500 dark:text-gray-400">
                   Erudite is a global destination for teaching and learning
                   online. It was founded in May 2022 by Moniruzzaman Sujon. As
                   of october 2022, the platform has more than 4 Thousands
@@ -149,11 +149,11 @@ const Login = () => {
                 </p>
               </div>
 
-              <form onSubmit={onSubmitHandler} class="mt-32">
-                <div class="mb-6">
+              <form onSubmit={onSubmitHandler} className="mt-32">
+                <div className="mb-6">
                   <label
                     htmlFor="Email"
-                    class="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-200"
                   >
                     Email
                   </label>
@@ -162,14 +162,14 @@ const Login = () => {
                     type="email"
                     id="Email"
                     name="email"
-                    class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 py-2 pl-2"
+                    className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 py-2 pl-2"
                   />
                 </div>
 
-                <div class="mb-6">
+                <div className="mb-6">
                   <label
                     htmlFor="Password"
-                    class="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-200"
                   >
                     Password
                   </label>
@@ -178,29 +178,29 @@ const Login = () => {
                     type="password"
                     id="Password"
                     name="password"
-                    class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 py-2 pl-2"
+                    className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 py-2 pl-2"
                   />
                 </div>
 
-                <div class="">
+                <div className="">
                   <p className="text-red-600">{error}</p>
-                  <p class="mb-4 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
+                  <p className="mb-4 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
                     Don't have an account?
                     <Link
                       to="/register"
-                      class="text-gray-700 underline dark:text-gray-200"
+                      className="text-gray-700 underline dark:text-gray-200"
                     >
                       Sign Up
                     </Link>
                     .
                   </p>
-                  <button class="w-full block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500 dark:hover:bg-blue-700 dark:hover:text-white">
-                    Create an account
+                  <button className="w-full block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500 dark:hover:bg-blue-700 dark:hover:text-white">
+                    Login
                   </button>
                 </div>
               </form>
             </div>
-            <div class="flex justify-between mt-12 ">
+            <div className="flex justify-between mt-12 ">
               <button
                 onClick={googleProviderHandler}
                 className="border block border-white p-2 bg-gray-100 rounded-sm hover:bg-gray-900"

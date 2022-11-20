@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../Assets/Logo/logo (2).png";
 import { AuthContext } from "../../Contexts/AuthProvider";
 import googleIcon from '../../Assets/Icon/icons8-google.svg'
@@ -12,7 +12,9 @@ const Register = () => {
   const { createAccount, signInwithProvider, emailVarification,
     userInformationProviding,
     setLoading, } = useContext(AuthContext);
-
+    const navigate= useNavigate() 
+    const location= useLocation()
+    const from = location.state?.from?.pathname || "/";
   const [error, setError] =  useState('')
   const [isChecked, setIsChecked] = useState(false);
   const googleProvider= new GoogleAuthProvider()
@@ -29,7 +31,7 @@ const Register = () => {
     const password = form.password.value;
     const passwordConfirm = form.PasswordConfirmation.value;
     const picUrl =form.photoURl.value
-    console.log(name, email, password, picUrl,  passwordConfirm);
+   
 
     if (password !== passwordConfirm) {
         setError("Password Doesn't Match")
@@ -39,11 +41,12 @@ const Register = () => {
     createAccount(email, password)
       .then((res) => {
         form.reset();
-        console.log(res);
+ 
         handelUserInformationProviding(name, picUrl);
         emailVarificationHandler()
         toast.error("Please Check your Email")
         setLoading(false);
+        navigate(from, {replace:true})
       })
       .catch((error) => {
         console.error(error);
@@ -84,7 +87,7 @@ const Register = () => {
   const googleProviderHandler =() =>{
     signInwithProvider(googleProvider)
     .then(res => {
-        console.log(res)
+      navigate(from, {replace:true})
     })
     .catch(error => {
         console.error(error)
@@ -94,7 +97,7 @@ const Register = () => {
   const githubProviderHandler =() =>{
     signInwithProvider(githubProvider)
     .then(res => {
-        console.log(res)
+      navigate(from, {replace:true})
     })
     .catch(error => {
         console.error(error)
@@ -104,7 +107,7 @@ const Register = () => {
   const facebookProviderHandler =() =>{
     signInwithProvider(facebookProvider)
     .then(res => {
-        console.log(res)
+      navigate(from, {replace:true})
     })
     .catch(error => {
         console.error(error)
@@ -113,7 +116,7 @@ const Register = () => {
 
   const checkHandeler = (event) => {
     setIsChecked(event.target.checked);
-    console.log(event.target.checked);
+
   };
 
   return (
@@ -128,7 +131,7 @@ const Register = () => {
             />
 
             <div className="hidden lg:relative lg:block lg:p-12">
-              <Link className="block text-white" href="/">
+              <Link className="block text-white" to="/">
                 <span className="sr-only">Erudite</span>
                 <img src={logo} alt="" />
               </Link>
@@ -155,7 +158,7 @@ const Register = () => {
               <div className="relative -mt-16 block lg:hidden">
                 <Link
                   className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-blue-600 dark:bg-gray-900 sm:h-20 sm:w-20"
-                  href="/"
+                  to="/"
                 >
                   <span className="sr-only">Erudite</span>
                   <img src={logo} alt="" />
@@ -330,7 +333,7 @@ const Register = () => {
                   <p className="mt-4 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
                     Already have an account? 
                     <Link
-                      href="#"
+                      to="/login"
                       className="text-gray-700 underline dark:text-gray-200"
                     >
                       Log in
@@ -342,7 +345,7 @@ const Register = () => {
 
               <div>
 
-                <div class="flex justify-between mt-12 ">
+                <div className="flex justify-between mt-12 ">
                  <button onClick={googleProviderHandler} className="border block border-white p-2 bg-gray-100 rounded-sm hover:bg-gray-900">
                    <Link><img className="w-12" src={googleIcon} alt="" /></Link>
                  </button>
